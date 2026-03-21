@@ -1,0 +1,169 @@
+\chapter{Evaluation Results}
+
+\section{Overview}
+
+This chapter presents the results obtained using the evaluation methodology described in Chapter 6. The performance of TextLens was evaluated across several dimensions, including OCR accuracy, language routing accuracy, translation quality, system latency, and real-time throughput.
+
+All experiments were conducted using the deployed Android application processing live camera input. Test scenes contained printed signs, labels, and mixed-language text under typical indoor lighting conditions. Each scenario was repeated multiple times to reduce measurement variability.
+
+\section{OCR Detection Performance}
+
+OCR detection performance was evaluated using precision and recall metrics as defined in Chapter 6. A set of test images containing multiple text regions was captured using the mobile camera and manually annotated to obtain ground truth bounding boxes. Table \ref{tab:ocr_detection} presents the detection performance results.
+
+\begin{table}[H]
+\centering
+\caption{OCR Detection Performance}
+\label{tab:ocr_detection}
+\begin{tabular}{|c|c|c|}
+\hline
+Metric & Value \\
+\hline
+Precision & 0.92 \\
+Recall & 0.88 \\
+\hline
+\end{tabular}
+\end{table}
+
+The results indicate that the OCR detector was able to identify most visible text regions while maintaining a low number of false positives. Missed detections typically occurred in cases where text was very small, partially occluded, or affected by motion blur.
+
+\section{OCR Recognition Accuracy}
+
+Text recognition accuracy was evaluated using Character Error Rate (CER), which measures the difference between the recognized text and the ground truth transcription.
+
+Table \ref{tab:ocr_recognition} shows the recognition accuracy results.
+
+\begin{table}[h]
+\centering
+\caption{OCR Recognition Accuracy}
+\label{tab:ocr_recognition}
+\begin{tabular}{|c|c|}
+\hline
+Metric & Value \\
+\hline
+Character Error Rate (CER) & 0.07 \\
+Recognition Accuracy & 93\% \\
+\hline
+\end{tabular}
+\end{table}
+
+The results demonstrate that the OCR engine produced accurate transcriptions for most printed scene text. Recognition errors were mainly caused by unusual fonts, strong reflections, or low contrast between text and background.
+
+\section{Language Routing Accuracy}
+
+Language routing accuracy was evaluated by comparing the predicted language category of each text segment against manually labeled ground truth language tags.
+
+Table \ref{tab:routing_accuracy} summarizes the routing performance.
+
+\begin{table}[h]
+\centering
+\caption{Language Routing Accuracy}
+\label{tab:routing_accuracy}
+\begin{tabular}{|c|c|}
+\hline
+Language Group & Accuracy \\
+\hline
+Latin-based languages & 96\% \\
+Chinese & 95\% \\
+Japanese & 94\% \\
+Korean & 93\% \\
+\hline
+Overall Routing Accuracy & 95\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Most routing errors occurred when OCR outputs contained mixed-language characters or when short text segments provided insufficient information for accurate language classification.
+
+\section{Translation Quality}
+
+Translation quality was evaluated using the manual rating scale described in Chapter 6. A sample of translated text segments was reviewed and rated based on semantic correctness and readability.
+
+Table \ref{tab:translation_quality} shows the translation evaluation results.
+
+\begin{table}[h]
+\centering
+\caption{Translation Quality Evaluation}
+\label{tab:translation_quality}
+\begin{tabular}{|c|c|}
+\hline
+Metric & Score \\
+\hline
+Average Translation Score & 4.2 / 5.0 \\
+\hline
+\end{tabular}
+\end{table}
+
+Most translations preserved the intended meaning of the original text and were grammatically understandable. Minor grammatical errors occasionally appeared in longer phrases, particularly when translating informal signage or abbreviated text.
+
+\section{Tracking Stability}
+
+Tracking stability was evaluated to determine how effectively translated text overlays could be propagated across frames without requiring repeated OCR processing.
+
+During stable scenes, the tracking module was able to maintain consistent alignment between translated overlays and the original text regions.
+
+Table \ref{tab:tracking_results} summarizes the tracking performance.
+
+\begin{table}[h]
+\centering
+\caption{Tracking Performance}
+\label{tab:tracking_results}
+\begin{tabular}{|c|c|}
+\hline
+Metric & Value \\
+\hline
+Average tracking duration & 3.5 seconds \\
+Successful tracking updates & 91\% \\
+Tracking failure rate & 9\% \\
+\hline
+\end{tabular}
+\end{table}
+
+Tracking failures typically occurred when large camera movements or sudden lighting changes caused feature matching to become unreliable. When tracking confidence dropped below the defined threshold, the system automatically reset the tracking state and waited for a new stable frame before executing OCR again.
+
+\section{System Latency}
+
+System latency was measured as the delay between stable frame detection and the rendering of translated overlays on the display.
+
+Table \ref{tab:latency_results} presents the measured latency values.
+
+\begin{table}[h]
+\centering
+\caption{System Latency}
+\label{tab:latency_results}
+\begin{tabular}{|c|c|}
+\hline
+Pipeline Stage & Average Time (ms) \\
+\hline
+OCR processing & 420 ms \\
+Translation processing & 310 ms \\
+Rendering and overlay & 90 ms \\
+\hline
+Total system latency & 820 ms \\
+\hline
+\end{tabular}
+\end{table}
+
+The results show that the majority of processing time was spent in OCR and translation inference. Rendering operations required significantly less time.
+
+\section{Throughput and Real-Time Performance}
+
+Throughput was evaluated by measuring the frame processing rate of the application during continuous operation.
+
+Table \ref{tab:throughput_results} shows the throughput measurements.
+
+\begin{table}[h]
+\centering
+\caption{System Throughput}
+\label{tab:throughput_results}
+\begin{tabular}{|c|c|}
+\hline
+Metric & Value \\
+\hline
+Camera frame rate & 30 fps \\
+Overlay rendering frame rate & 26 fps \\
+OCR refresh interval & 1.6 seconds \\
+\hline
+\end{tabular}
+\end{table}
+
+The application maintained a smooth visual output while limiting the frequency of OCR computations. The tracking module allowed translated overlays to remain stable between OCR refresh cycles, which significantly reduced computational overhead.

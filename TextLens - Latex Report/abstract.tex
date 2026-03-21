@@ -1,0 +1,8 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+Real-time camera translation has become increasingly common through applications such as Apple Translate and Google Lens. However, the internal design and implementation details of these systems are largely proprietary, making it difficult to understand how their translation pipelines function or how similar capabilities can be reproduced in an offline environment. This project presents \textit{TextLens}, a mobile application designed to perform real-time scene text translation directly on an Android device without requiring continuous internet connectivity.
+
+TextLens integrates computer vision and natural language processing into an on-device processing pipeline that captures camera frames, detects and recognizes scene text, translates the detected content, and renders the translated text back into the original image. The system uses ML Kit on-device optical character recognition (OCR) and neural machine translation models, allowing the application to function fully offline once language models are installed. To improve visual quality, a scene text replacement module removes original text regions using image inpainting and redraws translated text, tracking the text and inpainting in real-time.
+
+Evaluation results demonstrate strong performance, achieving an OCR character error rate of 5.9\%, detection precision of 92.1\%, detection recall of 86.8\%, and a translation quality score of 4.2/5. These results show that practical real-time multilingual scene translation can be achieved using an entirely on-device mobile pipeline.

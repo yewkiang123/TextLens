@@ -1,0 +1,52 @@
+\chapter{Conclusion and Future Work}
+\label{chap:conclusion}
+
+\section{Conclusion}
+
+This project presented the design and implementation of \textit{TextLens}, a mobile application capable of performing real-time scene text translation using a smartphone camera. The system integrates multiple computer vision and natural language processing components into a unified processing pipeline that detects text in the camera view, recognises the detected text using optical character recognition (OCR), translates the recognised content, and renders translated overlays directly onto the original scene.
+
+Unlike conventional OCR applications that simply extract text from images, TextLens focuses on delivering a live translation experience in which translated content is composited back into the scene at its original location. To support this functionality efficiently on mobile hardware, the system adopts a pipeline architecture consisting of motion-stability filtering, OCR execution on stable frames, batch translation of recognised text segments, and a tracking module that propagates translated overlays across subsequent frames without repeatedly executing OCR.
+
+The implementation demonstrates that combining motion-aware processing with lightweight visual tracking can significantly reduce redundant OCR computation while maintaining visual consistency in the translated output. By executing OCR only when the camera view becomes stable and relying on feature-based tracking for intermediate frames, the system achieves a balance between responsiveness and computational efficiency suitable for mobile devices.
+
+The evaluation results presented in Chapter~\ref{chap:results-discussion} demonstrate that the proposed pipeline performs reliably under realistic conditions. The OCR component achieved a Character Error Rate of approximately 5.9\%, indicating strong recognition accuracy for printed scene text. Text detection performance reached a precision of 92.1\% and a recall of 86.8\%, showing that the system successfully identifies most relevant text regions while minimizing false detections. The translation module achieved a manual evaluation score of 4.2 out of 5.0, suggesting that translated outputs are generally understandable and useful for interpreting short real-world text such as signs, menus, and labels.
+
+Performance measurements further revealed that OCR latency scales relatively smoothly with increasing text density, while translation becomes the dominant computational cost as the number of recognised text lines grows. The overall end-to-end response time increased from approximately 873\,ms for small scenes to around 5958\,ms for highly text-dense scenes containing several hundred words. These results indicate that the current implementation is well suited for typical scene translation scenarios involving short phrases and moderate amounts of text.
+
+Tracking evaluation results also showed that the affine tracking module effectively maintains spatial alignment of translated overlays between OCR refresh events. With an average Intersection over Union of approximately 0.82 and tracking continuity exceeding 90\%, the system can maintain stable overlays during normal handheld camera movement without repeatedly executing OCR.
+
+Overall, this project demonstrates that real-time scene text translation with integrated visual overlays can be implemented effectively on mobile hardware using a carefully designed processing pipeline. The TextLens prototype successfully integrates OCR, translation, and visual tracking into a cohesive system capable of delivering a practical live translation experience.
+
+\section{Limitations}
+
+Despite the promising results, several limitations remain in the current implementation.
+
+First, translation latency becomes the primary bottleneck when processing scenes containing large amounts of text. Since translations are currently performed sequentially for each recognised text line, processing time increases significantly in text-dense scenes.
+
+Second, OCR accuracy remains sensitive to environmental conditions such as low lighting, small font sizes, motion blur, and strong reflections. Although the motion-stability filter reduces recognition errors caused by camera movement, challenging visual conditions may still negatively affect detection and recognition performance.
+
+Third, the current system performs translation at the level of individual text lines rather than using larger contextual segments. While this simplifies the processing pipeline, it may occasionally lead to minor translation inconsistencies when the meaning of a phrase depends on surrounding context.
+
+Finally, the tracking module assumes relatively small frame-to-frame motion. Rapid camera movement, extreme perspective changes, or partial occlusion can cause the tracker to lose alignment, requiring the system to perform a full OCR refresh.
+
+\section{Future Work}
+
+Several directions exist for further improving the TextLens system.
+
+One potential improvement is to optimise the translation pipeline by introducing parallel or batch translation strategies. Processing multiple text lines simultaneously or applying more efficient neural inference techniques could significantly reduce translation latency for text-dense scenes.
+
+Another extension would be to improve OCR robustness by incorporating more advanced scene text recognition models. Recent deep learning approaches trained on large-scale multilingual datasets may provide better recognition performance under challenging visual conditions such as low lighting, curved text, or stylised fonts.
+
+The visual overlay component could also be enhanced through more advanced scene reconstruction techniques. Instead of directly replacing text regions, future systems could estimate surface geometry and lighting conditions to generate augmented translations that better match the appearance and perspective of the original environment.
+
+Tracking performance may also be improved using more sophisticated motion estimation algorithms, such as homography-based tracking or learning-based feature tracking. These approaches could allow the system to maintain stable overlays under larger camera movements or more complex scene changes.
+
+Another promising direction is expanding support for additional languages and scripts. While the current implementation focuses primarily on Latin, Chinese, Japanese, and Korean scripts, extending the language routing system to include more multilingual datasets would increase the system's usefulness in diverse environments.
+
+Finally, future work could explore hybrid inference strategies that combine on-device processing with optional cloud-assisted translation. Such an approach could maintain low latency for common translations while leveraging more powerful cloud models when higher translation accuracy or contextual understanding is required.
+
+\section{Final Remarks}
+
+This project demonstrates that real-time scene text translation with integrated visual overlays is feasible on modern mobile devices using a carefully designed processing pipeline. By combining motion-aware OCR triggering, efficient translation handling, and frame-to-frame visual tracking, TextLens provides a practical solution for interpreting foreign-language text in everyday environments.
+
+With further optimisation, improved OCR models, and expanded multilingual support, systems such as TextLens have the potential to significantly enhance accessibility and communication in multilingual settings.

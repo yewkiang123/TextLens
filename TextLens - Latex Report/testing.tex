@@ -1,0 +1,138 @@
+\chapter{System Testing}
+\label{chap:testing-evaluation}
+
+This chapter presents the testing strategy and evaluation methodology used to verify the correctness, performance, and practical usability of the \textit{TextLens} application. Since the system combines real-time camera processing, optical character recognition (OCR), language detection, machine translation, and translated text overlay rendering, testing must address both software correctness and user-visible behaviour. The evaluation therefore includes functional testing, integration testing, end-to-end testing, and benchmark-based performance analysis.
+
+\section{Testing Objectives}
+
+The purpose of testing is to determine whether the developed system satisfies the project objectives stated previously. In particular, the testing process is designed to verify the following:
+
+\begin{itemize}
+    \item The application can correctly detect and recognize scene text from camera input.
+    \item The recognized text can be translated into the selected target language.
+    \item The translated content can be rendered as a visual overlay in the appropriate location.
+    \item The application remains responsive during live camera usage.
+    \item Offline language model download and reuse function correctly.
+    \item Supporting features such as freeze-frame capture and image saving work reliably.
+\end{itemize}
+
+To achieve these objectives, multiple levels of testing were conducted, ranging from isolated unit tests to full workflow evaluation under realistic usage conditions.
+
+\section{Testing Strategy}
+
+The testing strategy adopted for TextLens is divided into three levels:
+
+\begin{itemize}
+    \item \textbf{Unit testing}, which verifies the correctness of isolated logic components.
+    \item \textbf{Integration testing}, which verifies interactions between OCR, translation, camera input, and overlay rendering components.
+    \item \textbf{End-to-end testing}, which verifies the complete user workflow from camera launch to translated overlay display and saving.
+\end{itemize}
+
+In addition to these software tests, benchmark-based evaluation was used to measure system performance, accuracy, reliability, and efficiency.
+
+\section{Test Environment}
+
+All tests were carried out using the Android development environment used for implementing the application. The evaluation environment includes the following:
+
+\begin{itemize}
+    \item \textbf{Platform:} Android mobile device
+    \item \textbf{Development language:} Kotlin
+    \item \textbf{Development environment:} Android Studio
+    \item \textbf{Camera framework:} CameraX
+    \item \textbf{OCR engine:} Google ML Kit Text Recognition
+    \item \textbf{Translation engine:} Google ML Kit Translation
+    \item \textbf{Computer vision library:} OpenCV
+    \item \textbf{Asynchronous processing:} Kotlin Coroutines
+\end{itemize}
+
+Where appropriate, testing was performed using both emulator-supported logic tests and physical device testing, since real-time camera and OCR functionality depend strongly on hardware behaviour.
+
+\section{Unit Testing}
+
+Unit testing was used to validate individual logic components that can be tested independently from hardware and external services. The main purpose of unit testing is to ensure that basic application logic behaves as expected before it is integrated into the full system.
+
+Examples of unit-testable components in TextLens include:
+
+\begin{itemize}
+    \item language selection and UI state logic
+    \item text processing helper functions
+    \item translation request preparation logic
+    \item state handling for downloaded and downloading language models
+\end{itemize}
+
+Unit tests are especially useful for verifying deterministic behaviour such as:
+
+\begin{itemize}
+    \item whether the correct language code is mapped from a selected UI option
+    \item whether cached translation results are reused correctly
+    \item whether the correct UI state is shown when language models are downloaded, downloading, or unavailable
+\end{itemize}
+
+The expected outcome of unit testing is that each isolated component produces the correct output for a given known input.
+
+\section{Integration Testing}
+
+Integration testing was carried out to ensure that individual modules function correctly when combined into the main processing pipeline. This is particularly important for TextLens, since the application depends on interaction between multiple subsystems rather than a single standalone algorithm.
+
+The following subsystem interactions were evaluated:
+
+\begin{itemize}
+    \item camera frame capture and OCR analysis
+    \item OCR result delivery to the translation module
+    \item translation result delivery to the overlay rendering module
+    \item motion stability detection and OCR triggering
+    \item language model download and subsequent translation execution
+\end{itemize}
+
+Integration testing focuses on identifying issues such as:
+
+\begin{itemize}
+    \item OCR results not arriving at the translation module
+    \item translated text not being rendered after successful translation
+    \item duplicate or stale detections appearing in the overlay
+    \item downloaded translation models not being reused across sessions
+\end{itemize}
+
+These tests help confirm that the full internal data flow of the system operates correctly.
+
+\section{End-to-End Testing}
+
+End-to-end testing was performed to evaluate the full user workflow under realistic operating conditions. Unlike unit and integration tests, which focus on internal correctness, end-to-end tests determine whether the application behaves correctly from the user's perspective.
+
+Typical end-to-end scenarios include:
+
+\begin{itemize}
+    \item launching the application and granting permissions
+    \item opening the camera and scanning a text-containing scene
+    \item waiting for OCR and translation to complete
+    \item displaying translated text as an overlay
+    \item switching source or target language
+    \item downloading a required language model
+    \item capturing a freeze-frame image
+    \item saving the processed image to the gallery
+\end{itemize}
+
+The purpose of these tests is to verify that the main features work together as intended without requiring manual intervention or workarounds.
+
+\section{Functional Testing}
+
+Functional testing was used to verify that all required features described in the project scope were implemented successfully. Table~\ref{tab:functional-tests} summarises representative functional test cases.
+
+\begin{table}[h]
+    \centering
+    \caption{Representative Functional Test Cases}
+    \label{tab:functional-tests}
+    \begin{tabular}{|p{1.2cm}|p{4.8cm}|p{4.8cm}|p{2.2cm}|}
+        \hline
+        \textbf{ID} & \textbf{Test Description} & \textbf{Expected Result} & \textbf{Status} \\ \hline
+        FT1 & Launch application and open camera preview & Camera preview is displayed successfully & Pass \\ \hline
+        FT2 & Detect visible scene text in stable view & Text is recognized and returned by OCR & Pass \\ \hline
+        FT3 & Translate detected text to target language & Translated output is produced correctly & Pass \\ \hline
+        FT4 & Display translated text on processed overlay & Overlay appears in correct region & Pass \\ \hline
+        FT5 & Download a language model & Model is downloaded and becomes available for reuse & Pass \\ \hline
+        FT6 & Enter freeze-frame mode & Current frame is captured and shown as static image & Pass \\ \hline
+        FT7 & Save frozen image to device gallery & Image is stored successfully and confirmation is shown & Pass \\ \hline
+        FT8 & Return from freeze-frame mode to live camera & Live preview resumes correctly & Pass \\ \hline
+    \end{tabular}
+\end{table}
+

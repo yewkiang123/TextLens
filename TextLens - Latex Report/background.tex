@@ -1,0 +1,112 @@
+\chapter{Introduction}
+
+\section{Background}
+
+With the increasing globalization of communication, mobile applications that provide instant translation have become very important for travelers, students, and professionals. Google Translate alone has surpassed one billion installations worldwide \cite{pitman2021googletranslate}. Among the various translation technologies available today, real-time camera-based translation has emerged as a particularly useful solution. By pointing a smartphone camera at text in the physical environment—such as signs, menus, and documents—users can instantly view translated content overlaid on the captured scene. These systems typically combine optical character recognition (OCR) to detect and extract text from images with machine translation (MT) to convert the recognized text into a target language.
+
+Despite significant advances in OCR and neural machine translation, real-time camera-based translation remains a challenging problem \cite{ocr_issues}. Text appearing in natural scenes often exhibits large variations in lighting conditions, font styles, orientations, and background complexity, which can negatively affect the accuracy of text detection and recognition. In addition, real-time camera input introduces motion blur and frame instability, which may lead to repeated OCR processing and unstable or flickering translated overlays.
+
+Another important challenge lies in the visual presentation of translated text. Many existing systems render translated text directly over the original text without preserving visual properties such as colour, scale, or orientation. This may result in overlays that appear inconsistent with the surrounding scene and reduce readability. Furthermore, many commercial camera translation systems rely heavily on cloud-based processing, which introduces latency, raises privacy concerns, and limits usability in environments with poor or no internet connectivity. These limitations highlight the need for mobile translation systems that can operate efficiently, accurately without the need of a stable internet connection.
+
+\section{Motivation}
+
+In an increasingly globalized world, the ability to understand foreign-language text has become important in both professional and everyday contexts. However, language barriers continue to hinder communication and accessibility, particularly when users encounter unfamiliar languages in physical environments. Situations such as travelling abroad, reading product labels, navigating public transportation systems, or understanding restaurant menus can become difficult when translation tools are unavailable or unreliable.
+
+Many existing translation applications rely on cloud-based processing, which requires continuous internet connectivity. In real-world scenarios, however, reliable internet access may not always be available. Users travelling in rural areas, underground transport systems, or foreign countries with limited connectivity may find online translation tools difficult to use.
+
+This project is motivated by the need for a mobile translation system that can function reliably without continuous internet access. By performing text recognition and translation directly on the mobile device, the system can provide real-time translation capabilities even in offline environments. Such a solution can improve accessibility, support cross-cultural communication, and provide a more convenient user experience when interacting with multilingual environments.
+
+\section{Project Objectives}
+
+The main objective of this project is to develop an offline, real-time mobile scene text translation application for Android that can detect, recognize, translate, and replace text in natural scenes without requiring continuous internet connectivity. The project aims to demonstrate how computer vision, optical character recognition, and mobile software engineering can be integrated into a practical end-user application.
+
+The specific objectives of this project are as follows:
+
+\begin{enumerate}
+    \item To design and implement a mobile translation system that operates without Wi-Fi or constant network connectivity by utilizing on-device text recognition and translation models.
+
+    \item To develop a complete end-to-end processing pipeline that captures camera frames, performs text detection and recognition, translates the detected text, and renders the translated results back onto the scene.
+
+    \item To integrate multiple computer vision components—including frame acquisition, preprocessing, OCR triggering, text tracking, image inpainting, translated text rendering—into and tracking a unified application.
+
+    \item To implement the solution as a fully functional Android application using Android Studio, demonstrating a deployable mobile software system rather than a conceptual prototype.
+
+    \item To design a user-friendly interface that allows users to interact easily with the application through features such as language selection, live camera preview, and freeze-frame viewing.
+\end{enumerate}
+
+\section{Project Scope}
+
+The scope of this project covers the design, implementation, integration, and evaluation of an Android-based mobile application for offline scene text translation. The project focuses on building a working prototype that demonstrates the complete translation workflow in real time and highlights the integration of several computer vision modules within a mobile environment.
+
+The project scope includes the following components:
+
+\begin{enumerate}
+
+    \item \textbf{Offline mobile deployment}
+
+    The system is designed specifically for Android devices and performs the main processing tasks directly on the device. The application is intended to operate without continuous reliance on cloud services or internet connectivity during normal usage.
+
+    \item \textbf{Real-time camera-based text translation}
+
+    The application processes live camera input and performs translation on text appearing within the captured scene. The workflow includes frame acquisition, text recognition, translation, and visual rendering of translated text in near real time.
+
+    \item \textbf{End-to-end computer vision pipeline}
+
+    The project implements and integrates multiple processing modules, including:
+    
+    \begin{itemize}
+        \item camera frame acquisition
+        \item frame preprocessing
+        \item OCR triggering under stable frame conditions
+        \item multilingual text recognition
+        \item text region tracking between OCR updates
+        \item image inpainting for removal of original text
+        \item translated text rendering within the scene
+    \end{itemize}
+
+    \item \textbf{Tracking System}
+      The project includes a motion-aware text tracking module that maintains the position of detected text regions between OCR updates. After an OCR pass detects text, the system tracks the text boxes across subsequent camera frames so that translated overlays remain aligned even when the device or scene moves slightly.    
+
+    \item \textbf{Mobile user interface design}
+
+    The project includes the design of a usable mobile interface, including features such as live camera preview, language selection controls, translated text display, and freeze-frame interaction to improve readability.
+
+    \item \textbf{Application integration and packaging}
+
+    The system integrates all components into a complete Android Studio project and packages them into a functional mobile application prototype for demonstration and evaluation.
+
+\end{enumerate}
+
+This project does not include large-scale cloud deployment, server-based translation services during runtime, or support for every possible language and device type. Instead, the focus is on developing a practical offline prototype that demonstrates the core concept of real-time multilingual scene text translation on Android devices.
+
+\section{Contributions}
+
+This project contributes the design and implementation of an offline, real-time mobile scene text translation system on Android. The main contributions of this work are summarized as follows:
+
+\begin{enumerate}
+
+\item \textbf{Offline real-time translation system}
+
+The project demonstrates a translation application that does not depend on continuous internet connectivity. By performing text recognition and translation directly on the device, the system remains usable in environments with limited or no network access.
+
+\item \textbf{End-to-end mobile translation pipeline}
+
+A complete processing pipeline is implemented, starting from live camera capture and progressing through text detection, recognition, translation, and visual rendering of translated text within the scene.
+
+\item \textbf{Integration of multiple computer vision components}
+
+The project integrates several computer vision and image processing modules—including frame acquisition, OCR detection, text region tracking, image inpainting, and text rendering—into a unified system suitable for mobile deployment.
+
+\item \textbf{Tracking system}
+
+The project contributes a tracking mechanism that preserves detected text regions between OCR updates, allowing translated text to remain aligned with the scene while reducing the need for repeated full recognition. This improves efficiency and supports smoother real-time performance on mobile hardware.   
+
+\item \textbf{Deployment as a functional Android application}
+
+The project demonstrates a working Android application that integrates computer vision, natural language processing, and mobile software engineering into a deployable system.
+
+\item \textbf{Practical demonstration of on-device AI}
+
+The project illustrates how computer vision and natural language processing models can be deployed directly on mobile devices to perform complex tasks without relying on cloud-based computation.
+
+\end{enumerate}

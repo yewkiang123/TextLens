@@ -3,8 +3,8 @@
 TextLens is an offline Android mobile application that performs real-time scene text translation. It uses the device camera to detect text in the environment, recognize the text, translate it into a selected target language, and render the translated text back onto the scene. The system is designed to work directly on-device without requiring continuous internet access.
 
 Resources:
-TextLens Implementation: https://github.com/yewkiang123/TranslatorApp/tree/main
-APK Link: https://drive.google.com/file/d/1w9sgwMR6rbkqU5-o-dmRmoTLvTK4JfTb/view?usp=drive_link
+- TextLens Implementation: https://github.com/yewkiang123/TranslatorApp/tree/main
+- APK Link: https://drive.google.com/file/d/1w9sgwMR6rbkqU5-o-dmRmoTLvTK4JfTb/view?usp=drive_link
 
 Features
 

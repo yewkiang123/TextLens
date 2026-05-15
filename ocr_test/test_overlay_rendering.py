@@ -32,8 +32,9 @@ def make_test_scene(
     text: str = "Hello",
     box: tuple = (50, 60, 350, 140),
     font_size: int = 40,
-    bg_color=(240, 240, 240),
+    bg_color=(240, 240, 240), 
     text_color=(20, 20, 20),
+    
 ) -> tuple[np.ndarray, tuple]:
     """
     Create an RGB numpy image with *text* drawn inside *box*.
